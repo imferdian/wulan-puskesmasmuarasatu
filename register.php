@@ -39,7 +39,7 @@ if(isset($_POST["register"])){
               <div class="card">
                   <h1 class="text-center mb-2">Puskesmas Muara Satu</h1>
                   <h5 class="text-center mb-4">Daftar Akun</h5>
-                  <form class="form-card" id="formRegister" action="register.php" method="post">
+                  <form class="form-card" id="formRegister" action="" method="post">
                       <div class="row justify-content-between text-left">
                           <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3" for="nama">Nama<span class="text-danger"> *</span></label>
@@ -62,7 +62,7 @@ if(isset($_POST["register"])){
                       </div>
                       <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex">
-                            <label class="form-control-label px-3" for="password">Password<span class="text-danger"> *</span></label>
+                            <label class="form-control-label px-3" for="password">Password (Minimal 6 Karakter)<span class="text-danger"> *</span></label>
                             <input type="password" id="password" name="password" placeholder="Masukan password anda" onblur="validate(5)" required>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">

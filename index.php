@@ -29,7 +29,7 @@ $currentPage = "index";
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Halaman Admin</title>
+  <title>Halaman Index</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -37,6 +37,9 @@ $currentPage = "index";
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -71,31 +74,18 @@ $currentPage = "index";
               <div class="card-header">
                 <h3 class="card-title">Upload File</h3>
               </div>
-              <!-- <div class="card-body">
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <div class="custom-file mb-3">
-                      <input type="file" class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Pilih file...</label>
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" name="upload" class="btn btn-primary">Upload</button>
-                    </div>
-                  </div>
-                </form>
-              </div> -->
               <div class="card-body">
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+                <form action="" method="post" enctype="multipart/form-data">
                   <div class="form-group">
                     <label>Judul Dokumen</label>
                     <input type="text" name="judul" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <div class="custom-file mb-3">
+                    <div class="custom-file mb-1">
                       <input type="file" class="custom-file-input " id="customFile" name="file[]" multiple required>
                       <label class="custom-file-label" for="customFile">Pilih file...</label>
                     </div>
-                    <small class="text-muted">Format yang diizinkan: JPG, PNG, DOCX, PDF, XLSX (Max. 5MB)</small>
+                    <small class="text-muted">Format yang diizinkan: JPG, PNG, DOCX, PDF (Max. 5MB)</small>
                   </div>
                   <div class="text-center">
                     <button type="submit" name="upload" class="btn btn-primary">Upload</button>
@@ -110,16 +100,6 @@ $currentPage = "index";
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -133,5 +113,14 @@ $currentPage = "index";
 <script src="dist/js/adminlte.min.js"></script>
 <!-- ScriptJS -->
 <script src="dist/js/upload.js"></script>
+<!-- SweetAlert -->
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
 </body>
 </html>
+
+<?php 
+require 'upload.php';
+
+
+?>

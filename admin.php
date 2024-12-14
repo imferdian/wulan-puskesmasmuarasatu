@@ -37,7 +37,7 @@ $currentPage = "index";
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -86,7 +86,7 @@ $currentPage = "index";
               <tr>
                 <td><?= $i; ?></td>
                 <td><?= $user['nip']; ?></td>
-                <td><?= $user['nama']; ?></td>
+                <td class="text-capitalize"><?= $user['nama']; ?></td>
                 <td><?= $user['golongan']; ?></td>
                 <td><?= $user['jabatan']; ?></td>
                 <td>

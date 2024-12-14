@@ -1,4 +1,8 @@
 body{
+    background-image: url('../img/puskesmas2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: #000;
     overflow-x: hidden;
     height: 100%;

@@ -18,6 +18,12 @@ function hapus($id){
     return mysqli_affected_rows($koneksi);
 }
 
+function hapus_dokumen($id){
+    global $koneksi;
+    mysqli_query($koneksi, "DELETE FROM files WHERE id = $id");
+    return mysqli_affected_rows($koneksi);
+}
+
 
 function register($data) {
     global $koneksi;
@@ -149,7 +155,7 @@ function checkCookie() {
         // Ambil data user berdasarkan id
         $result = mysqli_query($koneksi, "SELECT * FROM users WHERE id_user = '$id'");
         $row = mysqli_fetch_assoc($result);
-        
+
         // Cek cookie dan nip
         if($key === hash('sha256', $row['nip'])) {
             // Set session
