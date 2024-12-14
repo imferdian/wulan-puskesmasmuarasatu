@@ -92,7 +92,7 @@ $currentPage = "index";
                   </div>
                   <div class="form-group">
                     <div class="custom-file mb-3">
-                      <input type="file" class="custom-file-input" id="customFile" name="file[]" multiple required>
+                      <input type="file" class="custom-file-input " id="customFile" name="file[]" multiple required>
                       <label class="custom-file-label" for="customFile">Pilih file...</label>
                     </div>
                     <small class="text-muted">Format yang diizinkan: JPG, PNG, DOCX, PDF, XLSX (Max. 5MB)</small>
