@@ -1,0 +1,92 @@
+body{
+    color: #000;
+    height: 100%;
+}
+
+.fs{
+    font-size: 1.1rem;
+}
+
+.card{
+    padding: 30px 40px;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+}
+
+.blue-text{
+    color: #00BCD4
+}
+
+.form-card{
+    width: 100%;
+}
+
+.form-control-label{
+    margin-bottom: 0
+}
+
+.form-group {
+    max-width: 100%;
+}
+
+input, textarea, button{
+    padding: 8px 15px;
+    border-radius: 5px !important;
+    margin: 5px 0px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    font-size: 18px !important;
+    font-weight: 300;
+    width: 100%;
+
+}
+
+input:focus, textarea:focus{
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #00BCD4;
+    outline-width: 0;
+    font-weight: 400
+}
+
+.btn-block{
+    text-transform: uppercase;
+    font-size: 15px !important;
+    font-weight: 400;
+    height: 43px;cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-block:hover{
+    color: #fff !important
+}
+
+button:focus{
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0
+}
+
+@media screen and (min-width: 768px) {
+    .register-page {
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .register-page {
+        overflow-y: auto;
+    }
+    .container-fluid {
+        min-height: 100vh;
+    }
+    .card{
+        margin-top: 100px;
+    }
+}
