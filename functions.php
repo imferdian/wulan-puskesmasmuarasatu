@@ -20,7 +20,26 @@ function hapus($id){
 
 function hapus_dokumen($id){
     global $koneksi;
-    mysqli_query($koneksi, "DELETE FROM files WHERE id = $id");
+    
+    // Ambil informasi file sebelum dihapus
+    $query = "SELECT path FROM files WHERE id = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $file = mysqli_fetch_assoc($result);
+    
+    // Hapus file fisik jika ada
+    if($file && file_exists($file['path'])) {
+        unlink($file['path']);
+    }
+    
+    // Hapus record dari database
+    $query = "DELETE FROM files WHERE id = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
     return mysqli_affected_rows($koneksi);
 }
 

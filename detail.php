@@ -8,9 +8,15 @@ if(!isset($_SESSION["login"]) || $_SESSION["role"] !== "admin") {
 
 require "functions.php";
 
-$id = $_GET["id"];
-$user = query("SELECT * FROM users WHERE id_user = $id")[0];
-$files = query("SELECT * FROM files WHERE id_user = $id");
+// cek apakah parameter id_user ada
+if(!isset($_GET["id"])) {
+  header("Location: index.php");
+  exit;
+}
+
+$id_user = $_GET["id"];
+$user = query("SELECT * FROM users WHERE id_user = $id_user")[0];
+$files = query("SELECT * FROM files WHERE id_user = $id_user");
 $currentPage = "index";
 
 ?>
@@ -22,8 +28,12 @@ $currentPage = "index";
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halaman Detail</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/css/style.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -36,6 +46,8 @@ $currentPage = "index";
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
   <div class="wrapper">
@@ -129,7 +141,7 @@ $currentPage = "index";
                     <th style="width: 10px">No</th>
                     <th>Nama Dokumen</th>
                     <th style="width: 150px">Tanggal Upload</th>
-                    <th style="width: 85px">Aksi</th>
+                    <th style="width: 90px">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -146,7 +158,7 @@ $currentPage = "index";
                       <a href="" class="btn btn-success btn-sm">
                         <i class="fas fa-eye"></i>
                       </a>
-                      <a href="hapus-dokumen.php?id=<?= $file['id']; ?>" class="btn btn-danger btn-sm">
+                      <a href="hapus-dokumen.php?id=<?= $file['id']; ?>&user_id=<?= $id_user; ?>" class="btn btn-danger btn-sm hapus-dokumen">
                         <i class="fas fa-trash"></i>
                       </a>
                     </td>
@@ -185,12 +197,74 @@ $currentPage = "index";
   <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
   <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
   <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <!-- SweetAlert -->
+  <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
   <!-- Page specific script -->
 <script>
   $(function () {
     $("#dokumen").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true,
+      "lengthChange": false,
+      "autoWidth": false,
+      "pageLength": 5,
+      "lengthMenu": [
+        [5, 10, 25, 50, -1],
+        [5, 10, 25, 50, "Semua"]
+      ],
+      "lengthChange": true,
+      "language": {
+        "search": "Cari:",
+        "searchPlaceholder": "Cari data...",
+        "emptyTable": "Tidak ada dokumen yang diupload",
+        "zeroRecords": "Tidak menemukan data yang sesuai",
+        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+        "infoEmpty": "Tidak ada data yang tersedia",
+        "infoFiltered": "(disaring dari _MAX_ total data)",
+        "paginate": {
+          "first": "Pertama",
+          "last": "Terakhir",
+          "previous": "Sebelumnya",
+          "next": "Selanjutnya"
+        }
+      }
     });
+  });
+
+  $(".hapus-dokumen").click( async function(e) {
+    e.preventDefault();
+    const href = $(this).attr("href");
+    try {      
+      const result = await Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        })
+        if (result.isConfirmed) {
+          // Tampilkan Loading
+          Swal.fire({
+                  title: 'Memproses...',
+                  html: 'Mohon tunggu sebentar',
+                  allowOutsideClick: false,
+                  showConfirmButton: false,
+                  willOpen: () => {
+                      Swal.showLoading()
+                  }
+                });
+          document.location.href = href;
+        }
+    } catch (error) {
+      console.error('Error:', error);
+      Swal.fire({
+          icon: 'error',
+          title: 'Terjadi kesalahan',
+          text: 'Silakan coba lagi'
+      });
+    }
   });
 </script>
 </body>

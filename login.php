@@ -67,8 +67,12 @@ if(isset($_POST["login"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halaman Login</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/css/style.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
@@ -81,9 +85,8 @@ if(isset($_POST["login"])) {
 <body class="hold-transition register-page">
   <div class="container-fluid px-1 mx-auto">
       <div class="row d-flex justify-content-center">
-          <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center d-flex justify-content-center">
+          <div class="col-xl-10 col-lg-10 col-md-9 col-11 text-center d-flex justify-content-center">
               <div class="card">
-
                   <h1 class="text-center mb-2">Puskesmas Muara Satu</h1>
                   <h5 class="text-center mb-4">Login</h5>
 
@@ -101,10 +104,10 @@ if(isset($_POST["login"])) {
                     <div class="form-group col-sm-6 flex-column d-flex text-left">
                       <label class="form-control-label px-1" for="password">Password<span class="text-danger"> *</span></label>
                       <input type="password" id="password" name="password" placeholder="Masukan Password anda" required>
-                      <div class="row ">
+                      <div class="row">
                         <div class="col icheck-primary">
                           <input type="checkbox" name="remember" id="remember">
-                          <label for="remember">Ingat Saya</label>
+                          <label for="remember" class="font-weight-normal">Ingat Saya</label>
                         </div>
                         <a href="forgot-password.php">Lupa Password?</a>
                       </div>

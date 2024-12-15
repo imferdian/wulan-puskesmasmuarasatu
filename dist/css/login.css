@@ -12,6 +12,7 @@ body{
 }
 
 .card{
+    margin-top: 50px;
     padding: 30px 40px;
     box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
     display: flex;

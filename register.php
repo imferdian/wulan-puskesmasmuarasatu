@@ -1,19 +1,3 @@
-<?php
-require 'functions.php';
-
-if(isset($_POST["register"])){
-
-    if(register($_POST) > 0){
-        echo "<script>alert('Registrasi Berhasil');</script>";
-        echo "<script>window.location.href = 'login.php';</script>";
-    }else{
-        echo "<script>alert('Registrasi Gagal');</script>";
-    }
-}
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,16 +5,22 @@ if(isset($_POST["register"])){
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halaman Registration</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/css/style.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./dist/css/adminlte.min.css">
-  
-  <link rel="stylesheet" href="./dist/css/register.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="./plugins/sweetalert2/sweetalert2.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/css/register.css">
 </head>
 <body class="hold-transition register-page">
   <div class="container-fluid px-1 mx-auto">
@@ -41,11 +31,11 @@ if(isset($_POST["register"])){
                   <h5 class="text-center mb-4">Daftar Akun</h5>
                   <form class="form-card" id="formRegister" action="" method="post">
                       <div class="row justify-content-between text-left">
-                          <div class="form-group col-sm-6 flex-column d-flex">
+                        <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3" for="nama">Nama<span class="text-danger"> *</span></label>
                             <input type="text" id="nama" name="nama" placeholder="Masukkan nama anda" onblur="validate(1)" required>
                         </div>
-                          <div class="form-group col-sm-6 flex-column d-flex">
+                        <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3" for="nip">NIP<span class="text-danger"> *</span></label>
                             <input type="text" id="nip" name="nip" placeholder="Masukkan NIP anda" onblur="validate(2)" required>
                         </div>
@@ -92,7 +82,42 @@ if(isset($_POST["register"])){
     <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="/dist/js/adminlte.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="./plugins/sweetalert2/sweetalert2.all.min.js"></script>
     <!-- ScriptJS -->
     <script src="dist/js/script.js"></script>
+
 </body>
 </html>
+
+<?php
+require 'functions.php';
+
+if(isset($_POST["register"])){
+
+    if(register($_POST) > 0){
+        echo "<script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Registrasi Berhasil',
+            text: 'Silahkan login menggunakan akun yang sudah terdaftar',
+            confirmButtonText: 'Login'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'login.php';
+            }
+        });</script>";
+    }else{
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Registrasi Gagal',
+            text: 'Silahkan coba lagi',
+            confirmButtonText: 'Coba Lagi'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'register.php';
+            }
+        });</script>";
+    }
+}

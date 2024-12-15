@@ -121,9 +121,6 @@ if(isset($_POST["upload"])) {
                 }
             });
           </script>";
-} else {
-    header('Location: index.php');
-    exit;
 }
 
 ?>   
