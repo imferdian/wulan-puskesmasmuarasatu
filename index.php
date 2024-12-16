@@ -17,9 +17,12 @@ if($_SESSION["role"] !== "pegawai") {
   exit;
 }
 
-$users = query("SELECT * FROM users WHERE role = 'pegawai'");
+$idUser = $_SESSION['id'];
+$fotoUser = query("SELECT foto FROM users WHERE id_user = '$idUser'")[0];
 
-$foto = $_SESSION['foto'];
+$_SESSION['foto'] = $fotoUser['foto'];
+
+$users = query("SELECT * FROM users WHERE role = 'pegawai'")[0];
 
 $currentPage = "index";
 
@@ -90,7 +93,7 @@ $currentPage = "index";
                       <input type="file" class="custom-file-input " id="customFile" name="file[]" multiple required>
                       <label class="custom-file-label" for="customFile">Pilih file...</label>
                     </div>
-                    <small class="text-muted">Format yang diizinkan: JPG, JPEG, PNG (Max. 5MB)</small>
+                    <small class="text-muted">Format yang diizinkan: JPG, JPEG, PNG, PDF, DOCX, DOC  (Max. 5MB)</small>
                   </div>
                   <div class="text-center">
                     <button type="submit" name="upload" class="btn btn-primary">Upload</button>

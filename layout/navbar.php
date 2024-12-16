@@ -25,7 +25,7 @@
         </div>
         <div class="image">
           <?php if($currentPage == "index"){ ?>
-            <img src="../dist/img/<?= $_SESSION['foto'] ?>" class="img-circle elevation-2 bg-white h-100" alt="User Image" style="object-fit: cover;">
+            <img src="../dist/img/<?= $_SESSION['foto'] ?? 'default.png' ?>" class="img-circle elevation-2 bg-white" alt="User Image" style="object-fit: cover; height: 35px; width: 35px;">
           <?php } else {
             '';
           };?>

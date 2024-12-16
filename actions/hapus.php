@@ -46,7 +46,7 @@ if (hapus($id) > 0) {
             showConfirmButton: false,
             timer: 2000
         }).then(() => {
-            document.location.href = '../admin/admin.php';
+            document.location.href = '../admin.php';
         });
     </script>
     ";
@@ -59,7 +59,7 @@ if (hapus($id) > 0) {
             showConfirmButton: false,
             timer: 1500
         }).then(() => {
-            window.location.href = '../admin/admin.php'
+            window.location.href = '../admin.php'
         });
     </script>
     ";

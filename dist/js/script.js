@@ -86,9 +86,34 @@ const register = document.querySelector("#formRegister")
 register.addEventListener("submit", function(e) {
     const pass = document.getElementById("password").value;
     const pass2 = document.getElementById("password2").value;
+    // e.preventDefault();
+    // console.log(pass.length);
+
+    if(pass.length < 6){
+        e.preventDefault(); // Batalkan submit
+        Swal.fire({
+            icon: 'error',
+            toast: true,
+            position: 'top',
+            title: 'Registrasi Gagal',
+            text: 'Password harus terdiri dari 6 karakter atau lebih',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        })
+    }
 
     if(pass !== pass2){
         e.preventDefault(); // Batalkan submit
-        alert("Konfirmasi password tidak sama!");
+        Swal.fire({
+            icon: 'error',
+            toast: true,
+            position: 'top',
+            title: 'Registrasi Gagal',
+            text: 'Konfirmasi Password Salah',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        })
     }
 });

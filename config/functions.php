@@ -14,9 +14,30 @@ function query($query){
 
 function hapus($id){
     global $koneksi;
-    mysqli_query($koneksi, "DELETE FROM users WHERE id_user = $id");
-    return mysqli_affected_rows($koneksi);
+    
+    // Ambil semua file yang dimiliki oleh user yang akan dihapus
+    $query = "SELECT path FROM files WHERE id_user = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    // Hapus semua file fisik
+    while($file = $result->fetch_assoc()) {
+        if(file_exists("../" . $file['path'])) {
+            unlink("../" . $file['path']);
+        }
+    }
+
+    // Hapus data user
+    $query = "DELETE FROM users WHERE id_user = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    return mysqli_stmt_affected_rows($stmt);
 }
+
 
 function hapus_dokumen($id){
     global $koneksi;
@@ -62,28 +83,22 @@ function register($data) {
     $password2 = mysqli_real_escape_string($koneksi, $data["password2"]);
     $kode_role = mysqli_real_escape_string($koneksi, $data["role"]);
 
-    // Validasi password
-    if (strlen($password) < 6) {
-        echo "<script>alert('Password minimal 6 karakter!');
-        window.history.back();
-        </script>";
-        return false;
-    }
-    
-    if ($password !== $password2) {
-        echo "<script>alert('Konfirmasi Password Salah');
-        window.history.back();
-        </script>";
-        return false;
-    }
-
     // Cek NIP duplikat
     $result = mysqli_query($koneksi, "SELECT nip FROM users WHERE nip = '$nip'");
     if (mysqli_fetch_assoc($result)) {
-        echo "<script>alert('NIP Sudah Terdaftar');
-        window.history.back();
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Registrasi Gagal',
+            text: 'NIP Sudah Terdaftar',
+            confirmButtonText: 'Coba Lagi'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.history.back();
+            }
+        });
         </script>";
-        return false;
+        exit;
     } 
 
     // Tentukan role
@@ -95,8 +110,16 @@ function register($data) {
             $role = "admin";
         } else {
             echo "<script>
-                alert('Kode role salah! Silakan masukkan kode role yang benar atau kosongkan jika Anda bukan admin.');
-                window.history.back();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registrasi Gagal',
+                    text: 'Kode role salah! Silakan masukkan kode role yang benar atau kosongkan jika Anda bukan admin.',
+                    confirmButtonText: 'Coba Lagi'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.history.back();
+                    }
+                });
                 </script>";
             exit;
         }

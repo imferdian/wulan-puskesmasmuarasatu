@@ -61,7 +61,7 @@ $currentPage = "profile";
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center ">
                 <div class="foto-profile">
-                  <img src="dist/img/<?= $user['foto'] ?>" alt="Admin" class="rounded-circle " width="150" height="150" style="object-fit: cover;">
+                  <img src="dist/img/<?= $user['foto'] ? $user['foto'] : 'default.png' ?>" alt="Foto Profil" class="rounded-circle " width="150" height="150" style="object-fit: cover;">
                   <button type="button" class="btn btn-primary btn-sm rounded-pill ubah-foto" data-toggle="modal" data-target="#modalGantiFoto">
                     <i class="fas fa-pen"></i>
                   </button>
@@ -177,8 +177,8 @@ if(isset($_POST["submit"])) {
         <script>
           Swal.fire({
             icon: 'success',
-            title: 'Berhasil Mengubah Foto Profil',
-            text: 'Foto profil telah diubah',
+            title: 'Berhasil Mengubah Data Profil',
+            text: 'Data profil telah diubah',
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true
@@ -192,7 +192,7 @@ if(isset($_POST["submit"])) {
         <script>
           Swal.fire({
             icon: 'error',
-            title: 'Gagal Mengubah Foto Profil',
+            title: 'Gagal Mengubah Data Profil',
             text: 'Tidak ada data yang diubah',
             toast: true,
             position: 'top-end',
@@ -268,7 +268,7 @@ if(isset($_POST["gantiFoto"])) {
     $namaFileBaru .= $ekstensiGambar;
 
     // Hapus foto lama jika bukan foto default
-    if($fotoLama != 'default.jpg') {
+    if($fotoLama != 'default.png') {
         unlink('dist/img/' . $fotoLama);
     }
 

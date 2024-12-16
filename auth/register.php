@@ -116,8 +116,9 @@ if(isset($_POST["register"])){
             confirmButtonText: 'Coba Lagi'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = 'register.php';
+                window.history.back();
             }
-        });</script>";
+        });
+        </script>";
     }
 }

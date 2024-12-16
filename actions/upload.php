@@ -38,10 +38,6 @@ if(isset($_POST["upload"])) {
             case 'pdf':
                 $kategori = 'dokumen';
                 break;
-            case 'xls':
-            case 'xlsx':
-                $kategori = 'excel';
-                break;
             default:
                 $uploadFailed++;
                 continue 2;

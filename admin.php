@@ -17,9 +17,12 @@ if($_SESSION["role"] !== "admin") {
   exit;
 }
 
+$idAdmin = $_SESSION['id'];
+$fotoAdmin = query("SELECT foto FROM users WHERE id_user = '$idAdmin'")[0];
+
 $users = query("SELECT * FROM users WHERE role = 'pegawai'");
 
-$foto = $_SESSION['foto'];
+$_SESSION['foto'] = $fotoAdmin['foto'];
 
 
 $currentPage = "index";
