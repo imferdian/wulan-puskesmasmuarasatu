@@ -17,10 +17,10 @@ function hapus($id){
     
     // Ambil semua file yang dimiliki oleh user yang akan dihapus
     $query = "SELECT path FROM files WHERE id_user = ?";
-    $stmt = mysqli_prepare($koneksi, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $stmt = $koneksi->prepare($query);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     
     // Hapus semua file fisik
     while($file = $result->fetch_assoc()) {

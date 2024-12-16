@@ -21,6 +21,10 @@ body{
     max-width: 500px;
 }
 
+.card-reset-password{
+    min-width: 500px;
+}
+
 .blue-text{
     color: #00BCD4
 }
