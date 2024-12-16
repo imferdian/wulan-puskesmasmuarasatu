@@ -1,5 +1,5 @@
 <?php
-require "functions.php";
+require "../config/functions.php";
 session_start();
 
 $id = $_GET['id'];
@@ -7,28 +7,9 @@ $id = $_GET['id'];
 $user = query("SELECT * FROM users WHERE id_user = $id")[0];
 
 if(!isset($_SESSION["login"]) || $_SESSION['profile'] !== true) {
-  header("Location: login.php");
+  header("Location: ../auth/login.php");
   exit;
 }
-
-if(isset($_POST["submit"])) {
-  if(ubah($_POST) > 0) {
-    echo "
-        <script> 
-            alert('data berhasil diubah');
-            document.location.href = 'profile.php'
-        </script>
-        ";
-  } else {
-    echo "
-        <script> 
-            alert('data gagal diubah');
-            document.location.href = 'profile.php'
-        </script>
-        ";
-  }
-}
-
 $currentPage = "profile";
 
 ?>
@@ -150,3 +131,24 @@ $currentPage = "profile";
 <script src="dist/js/adminlte.min.js"></script>
 </body>
 </html>
+<?php 
+
+if(isset($_POST["submit"])) {
+  if(ubah($_POST) > 0) {
+    echo "
+        <script> 
+            alert('data berhasil diubah');
+            document.location.href = 'profile.php'
+        </script>
+        ";
+  } else {
+    echo "
+        <script> 
+            alert('data gagal diubah');
+            document.location.href = 'profile.php'
+        </script>
+        ";
+  }
+}
+
+?>

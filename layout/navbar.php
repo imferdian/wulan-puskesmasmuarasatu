@@ -18,13 +18,13 @@
             <a href="profile.php" class="d-block text-uppercase">
               <?= ($_SESSION["nama"]); ?>
           <?php } else { ?>
-            <a href="profile.php" class="d-block">
+            <a href="../profile.php" class="d-block">
               <?= "Admin"; ?>
           <?php } ?>
           </a>  
         </div>
         <div class="image">
-        <?= $currentPage == 'index' ? '<img src="dist/img/user-profile.png" class="img-circle elevation-2 bg-white" alt="User Image">' : '' ?>
+        <?= $currentPage == 'index' ? '<img src="../dist/img/user-profile.png" class="img-circle elevation-2 bg-white" alt="User Image">' : '' ?>
         </div>
       </div>
       </li>

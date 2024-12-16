@@ -30,8 +30,8 @@ function hapus_dokumen($id){
     $file = mysqli_fetch_assoc($result);
     
     // Hapus file fisik jika ada
-    if($file && file_exists($file['path'])) {
-        unlink($file['path']);
+    if($file && file_exists("../" . $file['path'])) {
+        unlink("../" . $file['path']);
     }
     
     // Hapus record dari database
@@ -189,5 +189,3 @@ function checkCookie() {
     }
     return false;
 }
-
-

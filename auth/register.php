@@ -10,17 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="dist/css/style.css">
+  <link rel="stylesheet" href="../dist/css/style.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="./plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="./dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="./plugins/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="../plugins/sweetalert2/sweetalert2.min.css">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="dist/css/register.css">
+  <link rel="stylesheet" href="../dist/css/register.css">
 </head>
 <body class="hold-transition register-page">
   <div class="container-fluid px-1 mx-auto">
@@ -77,21 +77,21 @@
   </div>
 
     <!-- jQuery -->
-    <script src="./plugins/jquery/jquery.min.js"></script>
+    <script src="../plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="/dist/js/adminlte.min.js"></script>
+    <script src="../dist/js/adminlte.min.js"></script>
     <!-- SweetAlert2 -->
-    <script src="./plugins/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../plugins/sweetalert2/sweetalert2.all.min.js"></script>
     <!-- ScriptJS -->
-    <script src="dist/js/script.js"></script>
+    <script src="../dist/js/script.js"></script>
 
 </body>
 </html>
 
 <?php
-require 'functions.php';
+require "../config/functions.php";
 
 if(isset($_POST["register"])){
 

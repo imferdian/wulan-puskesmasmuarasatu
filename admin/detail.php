@@ -6,11 +6,11 @@ if(!isset($_SESSION["login"]) || $_SESSION["role"] !== "admin") {
   exit;
 }
 
-require "functions.php";
+require "../config/functions.php";
 
 // cek apakah parameter id_user ada
 if(!isset($_GET["id"])) {
-  header("Location: index.php");
+  header("Location: ../index.php");
   exit;
 }
 
@@ -33,38 +33,38 @@ $currentPage = "index";
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="dist/css/style.css">
+  <link rel="stylesheet" href="../dist/css/style.css">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Profile style -->
-  <link rel="stylesheet" href="dist/css/profile.css">
+  <link rel="stylesheet" href="../dist/css/profile.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- SweetAlert -->
-  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="../plugins/sweetalert2/sweetalert2.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
   <div class="wrapper">
 
     <!-- Navbar -->
-    <?php include "layout/navbar.php" ?>
+    <?php include "../layout/navbar.php" ?>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <?php include "layout/sidebar.php" ?>
+    <?php include "../layout/sidebar.php" ?>
     
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper pt-3">
       <div class="container">
         <div class="col">
-          <a href="index.php" class="ml-3">&laquo; Kembali</a>
+          <a href="admin.php" class="ml-3">&laquo; Kembali</a>
         </div>
         <div class="main-body">
           <div class="row">
@@ -72,7 +72,7 @@ $currentPage = "index";
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center justify-content-center text-center mb-0">
-                  <img src="dist/img/user-profile.png" alt="Admin" class="rounded-circle border" width="150">
+                  <img src="../dist/img/user-profile.png" alt="Admin" class="rounded-circle border" width="150">
                   <div class="mt-3">
                     <h4 class="mb-1 text-uppercase font-weight-bold"><?=  $user['nama'] ?></h4>
                     <p class="text-secondary mb-0  text-uppercase"><?= $user['role'] ?></p>
@@ -152,15 +152,37 @@ $currentPage = "index";
                     <td><?= $file['judul']; ?></td>
                     <td><?= $file['tanggal_upload']; ?></td>
                     <td>
-                      <a href="" class="btn btn-primary btn-sm">
+                     <a href="../actions/download-dokumen.php?file=<?= $file['nama_file'];?>&kategori=<?= $file['kategori'];?>&judul=<?= $file['judul'];?>" class="btn btn-primary btn-sm">
                         <i class="fas fa-download"></i>
                       </a>
-                      <a href="" class="btn btn-success btn-sm">
+                      <button type="submit" class="btn btn-success btn-sm preview-btn" data-toggle="modal" data-target="#previewModal" 
+                              data-file="<?= $file['nama_file']; ?>" 
+                              data-kategori="<?= $file['kategori']; ?>"
+                              data-judul="<?= $file['judul']; ?>">
                         <i class="fas fa-eye"></i>
-                      </a>
-                      <a href="hapus-dokumen.php?id=<?= $file['id']; ?>&user_id=<?= $id_user; ?>" class="btn btn-danger btn-sm hapus-dokumen">
-                        <i class="fas fa-trash"></i>
-                      </a>
+                      </button>
+                    <!-- Modal Preview -->
+                      <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="previewModalLabel">Preview Dokumen</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body text-center">
+                              <div id="preview-content"></div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <a href="../actions/hapus-dokumen.php?id=<?= $file['id']; ?>&user_id=<?= $id_user; ?>" class="btn btn-danger btn-sm hapus-dokumen">
+                      <i class="fas fa-trash"></i>
+                    </a>
                     </td>
                   </tr>
                   <?php $i++; ?>
@@ -185,87 +207,20 @@ $currentPage = "index";
   <!-- REQUIRED SCRIPTS -->
 
   <!-- jQuery -->
-  <script src="plugins/jquery/jquery.min.js"></script>
+  <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+  <script src="../dist/js/adminlte.min.js"></script>
   <!-- DataTables  & Plugins -->
-  <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-  <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-  <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-  <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-  <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
   <!-- SweetAlert -->
-  <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
-  <!-- Page specific script -->
-<script>
-  $(function () {
-    $("#dokumen").DataTable({
-      "responsive": true,
-      "lengthChange": false,
-      "autoWidth": false,
-      "pageLength": 5,
-      "lengthMenu": [
-        [5, 10, 25, 50, -1],
-        [5, 10, 25, 50, "Semua"]
-      ],
-      "lengthChange": true,
-      "language": {
-        "search": "Cari:",
-        "searchPlaceholder": "Cari data...",
-        "emptyTable": "Tidak ada dokumen yang diupload",
-        "zeroRecords": "Tidak menemukan data yang sesuai",
-        "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-        "infoEmpty": "Tidak ada data yang tersedia",
-        "infoFiltered": "(disaring dari _MAX_ total data)",
-        "paginate": {
-          "first": "Pertama",
-          "last": "Terakhir",
-          "previous": "Sebelumnya",
-          "next": "Selanjutnya"
-        }
-      }
-    });
-  });
-
-  $(".hapus-dokumen").click( async function(e) {
-    e.preventDefault();
-    const href = $(this).attr("href");
-    try {      
-      const result = await Swal.fire({
-            title: 'Apakah anda yakin?',
-            text: "Data yang dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal'
-        })
-        if (result.isConfirmed) {
-          // Tampilkan Loading
-          Swal.fire({
-                  title: 'Memproses...',
-                  html: 'Mohon tunggu sebentar',
-                  allowOutsideClick: false,
-                  showConfirmButton: false,
-                  willOpen: () => {
-                      Swal.showLoading()
-                  }
-                });
-          document.location.href = href;
-        }
-    } catch (error) {
-      console.error('Error:', error);
-      Swal.fire({
-          icon: 'error',
-          title: 'Terjadi kesalahan',
-          text: 'Silakan coba lagi'
-      });
-    }
-  });
-</script>
+  <script src="../plugins/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="../dist/js/detail.js"></script>
 </body>
 </html>

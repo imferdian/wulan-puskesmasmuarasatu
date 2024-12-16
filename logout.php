@@ -8,7 +8,6 @@ session_destroy();
 setcookie('id', '', time() - 3600);
 setcookie('key', '', time() - 3600);
 
-header("Location: login.php");
+header("Location: ../auth/login.php");
 exit;
-
 ?>

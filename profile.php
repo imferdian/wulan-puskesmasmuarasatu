@@ -1,5 +1,5 @@
 <?php
-require "functions.php";
+require "config/functions.php";
 session_start();
 $_SESSION['profile'] = true;
 
@@ -7,18 +7,13 @@ $_SESSION['profile'] = true;
 if(!isset($_SESSION["login"])) {
   // Jika tidak ada session, cek cookie
   if(!checkCookie()) {
-      header("Location: login.php");
+      header("Location: auth/login.php");
       exit;
   }
 }
 
 $id = $_SESSION['id'];
 $user = query("SELECT * FROM users WHERE id_user = $id")[0];
-
-if(!isset($_SESSION["login"])) {
-  header("Location: login.php");
-  exit;
-}
 
 $currentPage = "profile";
 
@@ -117,7 +112,7 @@ $currentPage = "profile";
                 <hr>
                 <div class="row mt-4">
                   <div class="col-sm-12">
-                    <a class="btn btn-info" href="ubah.php?id=<?= $user["id_user"] ?>">Edit</a>
+                    <a class="btn btn-info" href="actions/ubah.php?id=<?= $user["id_user"] ?>">Edit</a>
                   </div>
                 </div>
               </div>

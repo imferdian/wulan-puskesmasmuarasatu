@@ -73,3 +73,20 @@ body{
 .content-profile ~ hr{
     margin-bottom: 23px;
 }
+
+.modal-body {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#preview-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+#preview-content img {
+  max-width: 100%;
+  height: auto;
+}

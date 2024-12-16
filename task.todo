@@ -3,10 +3,14 @@ Projects:
     ✔ Register page @done (12/15/2024, 1:58:22 AM)
 
 Tasks:
-    ✔ Memperbaiki tombol hapus dokumen @done (12/15/2024, 5:34:17 PM)
-    ☐ Mengatur struktur folder
+    ✔ Memperbaiki tombol hapus dokumen @done (12/15/2024, 5:34:17 PM
+    ✔ Mengatur struktur folder @done (12/16/2024, 12:54:54 AM)
+    ✔ Membuat logic download dokumen @done (12/16/2024, 12:55:01 AM)
+    ☐ Memeperbaiki preview dokumen
     ☐ Membuat logic lihat dokumen
-    ☐ Membuat logic download dokumen
     ☐ Membuat fitur ubah foto profile
     ☐ Membuat logic lupa password
 
+    <a href="../actions/preview.php?file=<?= $file['nama_file']; ?>&kategori=<?= $file['kategori']; ?>" class="btn btn-success btn-sm preview-file" target="_blank">
+        <i class="fas fa-eye"></i>
+    </a>

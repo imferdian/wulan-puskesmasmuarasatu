@@ -1,19 +1,19 @@
 <?php
-require "functions.php";
+require "config/functions.php";
 session_start();
 
 // Cek Session
 if(!isset($_SESSION["login"])) {
   // Jika tidak ada session, cek cookie
   if(!checkCookie()) {
-      header("Location: login.php");
+      header("Location: auth/login.php");
       exit;
   }
 }
 
 // Setelah ada session baru cek role
 if($_SESSION["role"] !== "pegawai") {
-  header("Location: login.php");
+  header("Location: auth/login.php");
   exit;
 }
 
@@ -124,7 +124,7 @@ $currentPage = "index";
 </html>
 
 <?php 
-require 'upload.php';
+require 'actions/upload.php';
 
 
 ?>

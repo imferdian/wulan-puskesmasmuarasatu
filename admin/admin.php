@@ -1,19 +1,19 @@
 <?php
-require "functions.php";
+require "../config/functions.php";
 session_start();
 
 // Cek Session
 if(!isset($_SESSION["login"])) {
   // Jika tidak ada session, cek cookie
   if(!checkCookie()) {
-      header("Location: login.php");
+      header("Location: ../auth/login.php");
       exit;
   }
 }
 
 // Setelah ada session baru cek role
 if($_SESSION["role"] !== "admin") {
-  header("Location: login.php");
+  header("Location: ../auth/login.php");
   exit;
 }
 
@@ -36,27 +36,27 @@ $currentPage = "index";
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- DataTables -->
-  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- SweetAlert -->
-  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="../plugins/sweetalert2/sweetalert2.min.css">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="dist/css/style.css">
+  <link rel="stylesheet" href="../dist/css/style.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <?php include "layout/navbar.php" ?>
+  <?php include "../layout/navbar.php" ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php include "layout/sidebar.php" ?>
+  <?php include "../layout/sidebar.php" ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -88,7 +88,7 @@ $currentPage = "index";
                 <th>Nama</th>
                 <th style="width: 50px">Golongan</th>
                 <th style="width: 150px">Jabatan</th>
-                <th style="width: 109px">Aksi</th>
+                <th style="width: 135px">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -101,8 +101,14 @@ $currentPage = "index";
                 <td><?= $user['golongan']; ?></td>
                 <td><?= $user['jabatan']; ?></td>
                 <td>
-                  <a href="detail.php?id=<?= $user['id_user']; ?>" class="btn btn-success badge">Lihat Detail</a>
-                  <a href="hapus.php?id=<?= $user['id_user']; ?>" class="btn btn-danger badge hapus-pegawai">Hapus</a>
+                  <a href="detail.php?id=<?= $user['id_user']; ?>" class="btn btn-success btn-sm">
+                    <i class="fas fa-info"></i>
+                    Detail
+                  </a>
+                  <a href="../actions/hapus.php?id=<?= $user['id_user']; ?>" class="btn btn-danger btn-sm hapus-pegawai">
+                    <i class="fas fa-trash"></i>
+                    Hapus
+                  </a>
                 </td>
               </tr>
               <?php $i++; ?>
@@ -132,20 +138,20 @@ $currentPage = "index";
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="../dist/js/adminlte.min.js"></script>
 <!-- DataTables  & Plugins -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <!-- SweetAlert -->
-<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+<script src="../plugins/sweetalert2/sweetalert2.all.min.js"></script>
 <script>
   $(function () {
     $("#tabelPegawai").DataTable({
