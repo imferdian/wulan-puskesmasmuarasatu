@@ -77,7 +77,7 @@ session_start();
 // Cek jika sudah login 
 if(isset($_SESSION["login"])) {
   if($_SESSION["role"] === "admin") {
-    header("Location: ../admin/admin.php");
+    header("Location: ../admin.php");
     exit;
   } else {
     header("Location: ../index.php");
@@ -106,10 +106,11 @@ if(isset($_POST["login"])) {
             }
             $_SESSION['login'] = true;
             $_SESSION['id'] = $row['id_user'];
-
+            $_SESSION['foto'] = $row['foto'];
+            
             if($row["role"] === "admin") {
                 $_SESSION["role"] = "admin";
-                header("Location: ../admin/admin.php");
+                header("Location: ../admin.php");
                 exit;
             } else {
                 $_SESSION["nama"] = $row["nama"];

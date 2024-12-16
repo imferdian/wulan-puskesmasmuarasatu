@@ -17,6 +17,7 @@ if(!isset($_GET["id"])) {
 $id_user = $_GET["id"];
 $user = query("SELECT * FROM users WHERE id_user = $id_user")[0];
 $files = query("SELECT * FROM files WHERE id_user = $id_user");
+
 $currentPage = "index";
 
 ?>
@@ -64,7 +65,7 @@ $currentPage = "index";
     <div class="content-wrapper pt-3">
       <div class="container">
         <div class="col">
-          <a href="admin.php" class="ml-3">&laquo; Kembali</a>
+          <a href="../admin.php" class="ml-3">&laquo; Kembali</a>
         </div>
         <div class="main-body">
           <div class="row">
@@ -72,7 +73,7 @@ $currentPage = "index";
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center justify-content-center text-center mb-0">
-                  <img src="../dist/img/user-profile.png" alt="Admin" class="rounded-circle border" width="150">
+                  <img src="../dist/img/<?= $user['foto'] ?? 'user-profile.png' ?>" alt="Admin" class="rounded-circle border" width="150" height="150" style="object-fit: cover;">
                   <div class="mt-3">
                     <h4 class="mb-1 text-uppercase font-weight-bold"><?=  $user['nama'] ?></h4>
                     <p class="text-secondary mb-0  text-uppercase"><?= $user['role'] ?></p>

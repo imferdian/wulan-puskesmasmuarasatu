@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="<?= $_SESSION["role"] == 'admin'  ? 'admin/admin.php' : 'index.php' ?>" class="brand-link">
+    <a href="<?= $_SESSION["role"] == 'admin'  ? 'admin.php' : 'index.php' ?>" class="brand-link">
       <img src="../dist/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Puskesmas Muara Satu</span>
     </a>
@@ -9,7 +9,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="<?= $_SESSION["role"] == 'admin' ? 'admin/admin.php' : 'index.php' ?>" class="nav-link <?= $currentPage == 'index' ? 'active' : '' ?>">
+            <a href="<?= $_SESSION["role"] == 'admin' ? 'admin.php' : 'index.php' ?>" class="nav-link <?= $currentPage == 'index' ? 'active' : '' ?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
                 <?= $_SESSION["role"] == "admin" ? "Data Pegawai" : "Dashboard" ?>

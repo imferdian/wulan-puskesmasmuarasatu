@@ -11,9 +11,10 @@ if(!isset($_SESSION["login"])) {
       exit;
   }
 }
-
 $id = $_SESSION['id'];
 $user = query("SELECT * FROM users WHERE id_user = $id")[0];
+
+$foto = $user['foto'];
 
 $currentPage = "profile";
 
@@ -61,7 +62,7 @@ $currentPage = "profile";
             <div class="card">
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
-                  <img src="dist/img/user-profile.png" alt="Admin" class="rounded-circle" width="150">
+                  <img src="dist/img/<?= $foto ?>" alt="Admin" class="rounded-circle" width="150" height="150" style="object-fit: cover;">
                   <div class="my-3">
                     <h4 class="mb-1 text-uppercase font-weight-bold"><?=  $user['nama'] ?></h4>
                     <p class="text-secondary mb-0  text-uppercase"><?= $user['role'] ?></p>
@@ -112,7 +113,7 @@ $currentPage = "profile";
                 <hr>
                 <div class="row mt-4">
                   <div class="col-sm-12">
-                    <a class="btn btn-info" href="actions/ubah.php?id=<?= $user["id_user"] ?>">Edit</a>
+                    <a class="btn btn-info" href="ubah.php?id=<?= $user["id_user"] ?>">Edit</a>
                   </div>
                 </div>
               </div>

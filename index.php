@@ -17,8 +17,9 @@ if($_SESSION["role"] !== "pegawai") {
   exit;
 }
 
-
 $users = query("SELECT * FROM users WHERE role = 'pegawai'");
+
+$foto = $_SESSION['foto'];
 
 $currentPage = "index";
 

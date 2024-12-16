@@ -1,5 +1,5 @@
 <?php
-require "../config/functions.php";
+require "config/functions.php";
 session_start();
 
 $id = $_GET['id'];
@@ -7,9 +7,10 @@ $id = $_GET['id'];
 $user = query("SELECT * FROM users WHERE id_user = $id")[0];
 
 if(!isset($_SESSION["login"]) || $_SESSION['profile'] !== true) {
-  header("Location: ../auth/login.php");
+  header("Location: auth/login.php");
   exit;
 }
+
 $currentPage = "profile";
 
 ?>
@@ -25,14 +26,16 @@ $currentPage = "profile";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="dist/css/style.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-  <!-- Profile style -->
+  <!-- SweetAlert -->
+  <link rel="stylesheet" href="plugins/sweetalert2/sweetalert2.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="dist/css/style.css">
   <link rel="stylesheet" href="dist/css/profile.css">
+  <link rel="stylesheet" href="dist/css/ubah.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -56,8 +59,41 @@ $currentPage = "profile";
           <div class="col-lg-4">
           <div class="card">
             <div class="card-body">
-              <div class="d-flex flex-column align-items-center text-center">
-                <img src="dist/img/user-profile.png" alt="Admin" class="rounded-circle" width="150">
+              <div class="d-flex flex-column align-items-center text-center ">
+                <div class="foto-profile">
+                  <img src="dist/img/<?= $user['foto'] ?>" alt="Admin" class="rounded-circle " width="150" height="150" style="object-fit: cover;">
+                  <button type="button" class="btn btn-primary btn-sm rounded-pill ubah-foto" data-toggle="modal" data-target="#modalGantiFoto">
+                    <i class="fas fa-pen"></i>
+                  </button>
+                </div>
+                <!-- Modal Ganti Foto -->
+                <div class="modal fade" id="modalGantiFoto" tabindex="-1" role="dialog" aria-labelledby="modalGantiFotoLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modalGantiFotoLabel">Ganti Foto Profil</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form action="" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                          <input type="hidden" name="id" value="<?= $user['id_user'] ?>">
+                          <input type="hidden" name="fotoLama" value="<?= $user['foto'] ?>">
+                          <div class="form-group">
+                            <label>Pilih Foto Baru</label>
+                            <input type="file" class="form-control" name="foto" accept="image/*" required>
+                            <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB</small>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                          <button type="submit" name="gantiFoto" class="btn btn-primary">Simpan</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
                 <div class="my-3">
                   <h4 class="mb-1 text-uppercase font-weight-bold"><?=  $user['nama'] ?></h4>
                   <p class="text-secondary mb-0  text-uppercase"><?= $user['role'] ?></p>
@@ -129,6 +165,8 @@ $currentPage = "profile";
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<!-- SweetAlert -->
+<script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
 </body>
 </html>
 <?php 
@@ -136,19 +174,140 @@ $currentPage = "profile";
 if(isset($_POST["submit"])) {
   if(ubah($_POST) > 0) {
     echo "
-        <script> 
-            alert('data berhasil diubah');
-            document.location.href = 'profile.php'
+        <script>
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Mengubah Foto Profil',
+            text: 'Foto profil telah diubah',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true
+          }).then(() => {
+            document.location.href = 'profile.php';
+          });
         </script>
         ";
   } else {
     echo "
-        <script> 
-            alert('data gagal diubah');
-            document.location.href = 'profile.php'
+        <script>
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal Mengubah Foto Profil',
+            text: 'Tidak ada data yang diubah',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+          }).then(() => {
+            document.location.href = 'ubah.php?id=$id'
+          });
         </script>
         ";
   }
+}
+
+if(isset($_POST["gantiFoto"])) {
+    $id = $_POST["id"];
+    $fotoLama = $_POST["fotoLama"];
+    
+    // Cek apakah ada file yang diupload
+    if($_FILES['foto']['error'] === 4) {
+        echo "<script>
+                alert('Pilih gambar terlebih dahulu!');
+                document.location.href = 'ubah.php?id=$id';
+              </script>";
+        return false;
+    }
+
+    // Cek apakah yang diupload adalah gambar
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode('.', $_FILES['foto']['name']);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    
+    if(!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        echo "<script>
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Gagal Mengubah Foto Profil',
+                  text: 'Yang anda upload bukan gambar',
+                  toast: true,
+                  position: 'top',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true
+              }).then(() => {
+                document.location.href = 'ubah.php?id=$id'
+                });
+              </script>";
+        return false;
+    }
+
+    // Cek ukuran file (maksimal 2MB)
+    if($_FILES['foto']['size'] > 2000000) {
+        echo "<script>
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Gagal Mengubah Foto Profil',
+                  text: 'Ukuran gambar terlalu besar (maks 2MB)',
+                  toast: true,
+                  position: 'top',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true
+              }).then(() => {
+                document.location.href = 'ubah.php?id=$id'
+                });
+              </script>";
+        return false;
+    }
+
+    // Generate nama file baru
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiGambar;
+
+    // Hapus foto lama jika bukan foto default
+    if($fotoLama != 'default.jpg') {
+        unlink('dist/img/' . $fotoLama);
+    }
+
+    // Upload file baru
+    move_uploaded_file($_FILES['foto']['tmp_name'], 'dist/img/' . $namaFileBaru);
+
+    // Update database
+    $query = "UPDATE users SET foto = '$namaFileBaru' WHERE id_user = $id";
+    mysqli_query($koneksi, $query);
+
+    if(mysqli_affected_rows($koneksi) > 0) {
+        echo "<script>
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Berhasil Mengubah Foto Profil',
+                  text: 'Foto profil telah diubah',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true
+                }).then(() => {
+                  document.location.href = 'profile.php'
+                });
+              </script>";
+    } else {
+        echo "<script>
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Gagal Mengubah Foto Profil',
+                  text: 'Foto profil belum dibuah',
+                  toast: true,
+                  position: 'top',
+                  showConfirmButton: false,
+                  timer: 3000,
+                  timerProgressBar: true
+              }).then(() => {
+                document.location.href = 'ubah.php?id=$id'
+                });
+              </script>";
+    }
 }
 
 ?>
