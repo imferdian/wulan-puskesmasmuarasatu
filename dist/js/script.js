@@ -35,7 +35,7 @@ function validate(val) {
         }
     }
     if(val>=3 || val==0) {
-        if(v3.value == "") {
+        if(v3.value == "pilih-golongan") {
             v3.style.borderColor = "red";
             flag3 = false;
         }
@@ -86,8 +86,23 @@ const register = document.querySelector("#formRegister")
 register.addEventListener("submit", function(e) {
     const pass = document.getElementById("password").value;
     const pass2 = document.getElementById("password2").value;
-    // e.preventDefault();
-    // console.log(pass.length);
+    const golongan = document.getElementById('golongan').value;
+
+
+    if(golongan == 'pilih-golongan'){
+        e.preventDefault();
+        Swal.fire({
+            icon: 'error',
+            toast: true,
+            position: 'top',
+            title: 'Registrasi Gagal',
+            text: 'Pilih golongan yang sesuai',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        })
+    }
+
 
     if(pass.length < 6){
         e.preventDefault(); // Batalkan submit
@@ -117,3 +132,5 @@ register.addEventListener("submit", function(e) {
         })
     }
 });
+
+

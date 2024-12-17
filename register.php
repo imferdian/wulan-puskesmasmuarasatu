@@ -40,10 +40,29 @@
                             <input type="text" id="nip" name="nip" placeholder="Masukkan NIP anda" onblur="validate(2)" required>
                         </div>
                       </div>
-                      <div class="row justify-content-between text-left">
+                      <div class="row -content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3" for="golongan">Golongan<span class="text-danger"> *</span></label>
-                            <input type="text" id="golongan" name="golongan" placeholder="Masukan golongan anda" onblur="validate(3)" required>
+                            <select id="golongan" name="golongan" id="golongan" onblur="validate(3)">
+                                <option value="pilih-golongan">Pilih Golongan</option>
+                                <option value="I/a">I/a</option>
+                                <option value="I/b">I/b</option>
+                                <option value="I/c">I/c</option>
+                                <option value="I/d">I/d</option>
+                                <option value="II/a">II/a</option>
+                                <option value="II/b">II/b</option>
+                                <option value="II/c">II/c</option>
+                                <option value="II/d">II/d</option>
+                                <option value="III/a">III/a</option>
+                                <option value="III/b">III/b</option>
+                                <option value="III/c">III/c</option>
+                                <option value="III/d">III/d</option>
+                                <option value="IV/a">IV/a</option>
+                                <option value="IV/b">IV/b</option>
+                                <option value="IV/c">IV/c</option>
+                                <option value="IV/d">IV/d</option>
+                            </select>
+                            <!-- <input type="" id="golongan" name="golongan" placeholder="Masukan golongan anda" onblur="validate(3)" required> -->
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3" for="jabatan">Jabatan<span class="text-danger"> *</span></label>
