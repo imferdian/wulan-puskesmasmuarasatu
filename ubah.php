@@ -26,6 +26,8 @@ $currentPage = "profile";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <!-- Bootstrap Icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
@@ -63,7 +65,7 @@ $currentPage = "profile";
                 <div class="foto-profile">
                   <img src="dist/img/<?= $user['foto'] ? $user['foto'] : 'default.png' ?>" alt="Foto Profil" class="rounded-circle " width="150" height="150" style="object-fit: cover;">
                   <button type="button" class="btn btn-primary btn-sm rounded-pill ubah-foto" data-toggle="modal" data-target="#modalGantiFoto">
-                    <i class="fas fa-pen"></i>
+                  <i class="bi bi-camera-fill"></i>
                   </button>
                 </div>
                 <!-- Modal Ganti Foto -->

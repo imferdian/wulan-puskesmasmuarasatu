@@ -28,8 +28,8 @@
 <?php
 session_start();
 
-if(!isset($_SESSION["login"])) {
-  header("Location: ../auth/login.php");
+if(!isset($_SESSION["login"]) || $_SESSION["role"] !== "admin") {
+  header("Location: login.php");
   exit;
 }
 

@@ -197,15 +197,13 @@ function checkCookie() {
         // Ambil data user berdasarkan id
         $result = mysqli_query($koneksi, "SELECT * FROM users WHERE id_user = '$id'");
         $row = mysqli_fetch_assoc($result);
-
+        
         // Cek cookie dan nip
         if($key === hash('sha256', $row['nip'])) {
             // Set session
-            if($row['role'] == 'pegawai') {
-                $_SESSION['nama'] = $row['nama'];
-            }
-            $_SESSION['login'] = true;
+            $_SESSION['nama'] = $row['nama'];
             $_SESSION['id'] = $row['id_user'];
+            $_SESSION['login'] = true;
             $_SESSION['role'] = $row['role'];
             return true;
         }

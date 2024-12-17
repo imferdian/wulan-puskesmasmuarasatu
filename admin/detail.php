@@ -1,12 +1,21 @@
 <?php 
 session_start();
+require "../config/functions.php";
 
-if(!isset($_SESSION["login"]) || $_SESSION["role"] !== "admin") {
-  header("Location: login.php");
-  exit;
+// Cek Session
+if(!isset($_SESSION["login"])) {
+  // Jika tidak ada session, cek cookie
+  if(!checkCookie()) {
+      header("Location: auth/login.php");
+      exit;
+  }
 }
 
-require "../config/functions.php";
+
+if($_SESSION["role"] !== "admin") {
+  header("Location: ../login.php");
+  exit;
+}
 
 // cek apakah parameter id_user ada
 if(!isset($_GET["id"])) {
@@ -35,10 +44,10 @@ $currentPage = "index";
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../dist/css/style.css">
+  <!-- Bootstrap Icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Profile style -->
@@ -154,13 +163,13 @@ $currentPage = "index";
                     <td><?= $file['tanggal_upload']; ?></td>
                     <td>
                      <a href="../actions/download-dokumen.php?file=<?= $file['nama_file'];?>&kategori=<?= $file['kategori'];?>&judul=<?= $file['judul'];?>" class="btn btn-primary btn-sm">
-                        <i class="fas fa-download"></i>
+                        <i class="bi bi-download"></i>
                       </a>
                       <button type="submit" class="btn btn-success btn-sm preview-btn" data-toggle="modal" data-target="#previewModal" 
                               data-file="<?= $file['nama_file']; ?>" 
                               data-kategori="<?= $file['kategori']; ?>"
                               data-judul="<?= $file['judul']; ?>">
-                        <i class="fas fa-eye"></i>
+                        <i class="bi bi-eye-fill"></i>
                       </button>
                     <!-- Modal Preview -->
                       <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
@@ -182,7 +191,7 @@ $currentPage = "index";
                         </div>
                       </div>
                     <a href="../actions/hapus-dokumen.php?id=<?= $file['id']; ?>&user_id=<?= $id_user; ?>" class="btn btn-danger btn-sm hapus-dokumen">
-                      <i class="fas fa-trash"></i>
+                      <i class="bi bi-trash-fill"></i>
                     </a>
                     </td>
                   </tr>

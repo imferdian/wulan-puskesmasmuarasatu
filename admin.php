@@ -6,14 +6,14 @@ session_start();
 if(!isset($_SESSION["login"])) {
   // Jika tidak ada session, cek cookie
   if(!checkCookie()) {
-      header("Location: auth/login.php");
+      header("Location: login.php");
       exit;
   }
 }
 
 // Setelah ada session baru cek role
 if($_SESSION["role"] !== "admin") {
-  header("Location: auth/login.php");
+  header("Location: login.php");
   exit;
 }
 
@@ -40,9 +40,10 @@ $currentPage = "index";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+  <!-- Bootstrap Icon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- DataTables -->
@@ -90,11 +91,11 @@ $currentPage = "index";
             <thead>
               <tr>
                 <th style="width: 10px">No</th>
-                <th style="width: 150px">NIP</th>
+                <th style="width: 100px">NIP</th>
                 <th>Nama</th>
-                <th style="width: 50px">Golongan</th>
+                <th style="width: 35px">Golongan</th>
                 <th style="width: 150px">Jabatan</th>
-                <th style="width: 135px">Aksi</th>
+                <th style="width: 145px">Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -108,11 +109,11 @@ $currentPage = "index";
                 <td><?= $user['jabatan']; ?></td>
                 <td>
                   <a href="admin/detail.php?id=<?= $user['id_user']; ?>" class="btn btn-success btn-sm">
-                    <i class="fas fa-info"></i>
+                  <i class="bi bi-info-circle"></i>
                     Detail
                   </a>
                   <a href="actions/hapus.php?id=<?= $user['id_user']; ?>" class="btn btn-danger btn-sm hapus-pegawai">
-                    <i class="fas fa-trash"></i>
+                    <i class="bi bi-trash-fill"></i>
                     Hapus
                   </a>
                 </td>

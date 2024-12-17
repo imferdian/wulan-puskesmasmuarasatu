@@ -15,7 +15,7 @@
           <?php if($currentPage == "profile"){ ?>
             <a href="logout.php" class="btn btn-danger">Logout</a>
           <?php } else if(isset($_SESSION["nama"])) { ?>
-            <a href="profile.php" class="d-block text-uppercase">
+            <a href="../profile.php" class="d-block text-uppercase">
               <?= ($_SESSION["nama"]); ?>
           <?php } else { ?>
             <a href="../profile.php" class="d-block">
