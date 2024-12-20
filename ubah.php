@@ -89,8 +89,11 @@ $currentPage = "profile";
                           </div>
                         </div>
                         <div class="modal-footer">
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" onclick="resetFoto(<?= $user['id_user'] ?>)">Reset Foto</button>
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                           <button type="submit" name="gantiFoto" class="btn btn-primary">Simpan</button>
+                        </div>
                         </div>
                       </form>
                     </div>
@@ -169,6 +172,55 @@ $currentPage = "profile";
 <script src="dist/js/adminlte.min.js"></script>
 <!-- SweetAlert -->
 <script src="plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+function resetFoto(id) {
+    Swal.fire({
+        title: 'Apakah Anda yakin?',
+        text: "Foto profil akan direset ke default!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, reset!',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Kirim request AJAX untuk reset foto
+            $.ajax({
+                url: 'reset_foto.php',
+                type: 'POST',
+                data: {id: id},
+                success: function(response) {
+                  if(response.trim() == 'success') { // Tambahkan trim()
+                      Swal.fire({
+                          icon: 'success',
+                          title: 'Berhasil Reset Foto Profil',
+                          text: 'Foto profil telah direset ke default',
+                          showConfirmButton: false,
+                          timer: 2000,
+                          timerProgressBar: true
+                      }).then(() => {
+                          location.reload();
+                      });
+                  } else {
+                      Swal.fire({
+                          icon: 'error',
+                          title: 'Gagal Reset Foto Profil',
+                          text: 'Terjadi kesalahan saat mereset foto',
+                          toast: true,
+                          position: 'top',
+                          showConfirmButton: false,
+                          timer: 3000,
+                          timerProgressBar: true
+                      });
+                  }
+              },
+            });
+        }
+    });
+}
+</script>
 </body>
 </html>
 <?php 

@@ -210,3 +210,29 @@ function checkCookie() {
     }
     return false;
 }
+
+function resetFoto($id) {
+    global $koneksi;
+    
+    // Ambil foto lama
+    $result = mysqli_query($koneksi, "SELECT foto FROM users WHERE id_user = $id");
+    $row = mysqli_fetch_assoc($result);
+    $fotoLama = $row['foto'];
+    
+    // Hapus foto lama jika bukan default.png
+    if($fotoLama != 'default.png') {
+        $path = "dist/img/" . $fotoLama;
+        if(file_exists($path)) {
+            unlink($path);
+        }
+    }
+    
+    // Update ke foto default
+    $query = "UPDATE users SET foto = 'default.png' WHERE id_user = ?";
+    $stmt = mysqli_prepare($koneksi, $query);
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    
+    return mysqli_affected_rows($koneksi);
+}
+
